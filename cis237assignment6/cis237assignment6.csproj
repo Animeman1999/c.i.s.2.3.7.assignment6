@@ -235,6 +235,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\3wines.jpg" />
+    <Content Include="Images\masons.jpg" />
+    <Content Include="Images\PaulMasonic.jpg" />
+    <Content Include="Images\ThankYou660x430-d4cda3e5af.jpg" />
+    <Content Include="Images\trump-new-world-order.jpg" />
+    <Content Include="Images\wine-bottle-sizes-4.jpg" />
+    <Content Include="Images\WineryBuildingFront.jpg" />
     <Content Include="Models\Wines.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Wines.edmx</DependentUpon>
