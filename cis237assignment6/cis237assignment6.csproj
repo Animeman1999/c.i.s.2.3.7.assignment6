@@ -207,7 +207,7 @@
     <Compile Include="Models\Beverage.cs">
       <DependentUpon>Wines.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BeveragesController.cs" />
+    <Compile Include="Controllers\BeveragesController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Wines.Context.cs">
