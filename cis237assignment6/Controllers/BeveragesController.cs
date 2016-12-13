@@ -16,7 +16,70 @@ namespace cis237assignment6.Models
         // GET: Beverages
         public ActionResult Index()
         {
-            return View(db.Beverages.ToList());
+            //Setup a variable to hold the Cars data set
+            DbSet<Beverage> BeverageToSearch = db.Beverages;
+            //Strings to hold the user data that might be in the session and to be the default values if user has not entered any.
+            string filterName = " ";
+            string filterPack = " ";
+            string filterMinPrice = "";
+            string filterMaxPrice = "";
+
+            decimal minPrice = 0;
+            decimal maxPrice = 1000000;
+            
+            //Check to see if there is a value in the session, and if there is assign it to the variable setup to
+            // hold the value. Take the value and place into the ViewBag for transfer back to the sorted list.
+            if(Session["name"]!= null && !string.IsNullOrWhiteSpace((string)Session["name"]))
+            {
+                filterName = (string)Session["name"];
+                ViewBag.filterName = filterName;
+            }
+
+            if (Session["pack"] != null && !string.IsNullOrWhiteSpace((string)Session["pack"]))
+            {
+                filterPack = (string)Session["pack"];
+                ViewBag.filterPack = filterPack;
+            }
+
+            if (Session["minPrice"] != null && !string.IsNullOrWhiteSpace((string)Session["minPrice"]))
+            {
+                filterMinPrice = (string)Session["minPrice"];
+                try
+                {
+                    minPrice = Decimal.Parse(filterMinPrice);
+                    ViewBag.filterMinPriceError = "";
+                    ViewBag.filterMinePrice = filterMinPrice;
+                }catch(Exception e)
+                {
+                    ViewBag.filterMinPriceError = "ERROR: Not a valid minumum price. Enter a number.";
+                    ViewBag.filterMinPrice = "";
+                }
+            }
+
+            if (Session["maxPrice"] != null && !string.IsNullOrWhiteSpace((string)Session["maxPrice"]))
+            {
+                filterMaxPrice = (string)Session["maxPrice"];
+                filterMinPrice = (string)Session["minPrice"];
+                try
+                {
+                    maxPrice = Decimal.Parse(filterMaxPrice);
+                    ViewBag.filterMaxPriceError = "";
+                    ViewBag.filterMaxPrice = filterMaxPrice;
+                }
+                catch (Exception e)
+                {
+                    ViewBag.filterMaxPriceError = "ERROR: Not a valid maximum price. Enter a number.";
+                    ViewBag.filterMaxPrice = "";
+                }
+            }
+
+            //Do the filter for all of the fields. Since the default value is "" it will function.
+            IEnumerable<Beverage> filtered = BeverageToSearch.Where(bev => bev.price >= minPrice &&
+                                                                           bev.price <= maxPrice &&
+                                                                           bev.name.ToUpper().Contains(filterName.ToUpper())&&
+                                                                           bev.pack.ToLower().Contains(filterPack.ToLower()));
+
+            return View(filtered);
         }
 
         // GET: Beverages/Details/5
@@ -114,6 +177,30 @@ namespace cis237assignment6.Models
             return RedirectToAction("Index");
         }
 
+        //This is the filter method. It will take in the data submitted from the form and store it in the session.
+        //Add the HttpPost to make sure is is a post.
+        //Add the ValidateAntiForgeryToken to make sure the person submiting the form got the form form the server.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Filter()
+        {
+            //Get the form data that was sent out of the Request object.
+            //The string that is used as a key to get the data matches the
+            //name property of the form control.
+            String name = Request.Form.Get("name");
+            String pack = Request.Form.Get("pack");
+            String minPrice = Request.Form.Get("minPrice");
+            String maxPrice = Request.Form.Get("maxPrice");
+
+            //Store the form data into the session so that icn be retrieved to filter the data.
+            Session["name"] = name;
+            Session["pack"] = pack;
+            Session["minPrice"] = minPrice;
+            Session["maxPrice"] = maxPrice;
+
+            //Redierct the user to the (Beverages)index page where the filting will be done.
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

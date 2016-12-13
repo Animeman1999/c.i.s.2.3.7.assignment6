@@ -6,6 +6,46 @@
 
 <h2>Wine List</h2>
 
+@*Adds the fitler to the form*@
+
+<div class="form-group">
+    <fieldset>
+        <legend>Search Filter</legend>
+        @{ 
+            using (Html.BeginForm("Filter", "Beverages", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <label for="name">Name</label>
+                @Html.TextBox("name", (string)ViewBag.filterName)
+
+                <label for="pack">Pack</label>
+                @Html.TextBox("pack", (string)ViewBag.filterPack)
+
+                <label for="minPrice">Minimum Price</label>
+                @Html.TextBox("minPrice", (string)ViewBag.filterMinePrice)
+
+                <label for="maxPrice">Maximum Price</label>
+                @Html.TextBox("maxPrice", (string)ViewBag.filterMaxPrice)
+                <br />
+
+                <table class="table">
+                    <tr>
+                        <td for="nameError"></td>
+                        <td for="packError"></td>
+                        <td for="minPriceError" ></td>
+                        @Html.Label("", (String)ViewBag.filterMinPriceError) 
+                        <td for="maxPriceError" ></td>
+                        @Html.Label("", (string)ViewBag.filterMaxPriceError)
+                    </tr>
+                </table>
+                
+                <input type="submit" value="Filter" class="btn btn-info pull-right" />
+            }
+        }
+    </fieldset>
+</div>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
