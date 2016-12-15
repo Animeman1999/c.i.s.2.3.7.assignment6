@@ -112,6 +112,7 @@ namespace cis237assignment6.Models
         {
             if (ModelState.IsValid)
             {
+                
                 db.Beverages.Add(beverage);
                 db.SaveChanges();
                 return RedirectToAction("Index");

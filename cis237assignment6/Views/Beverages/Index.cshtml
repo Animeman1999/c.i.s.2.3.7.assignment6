@@ -31,8 +31,10 @@
 
                 <table class="table">
                     <tr>
-                        <td for="nameError"></td>
-                        <td for="packError"></td>
+                        <td for="error1"></td>
+                        @Html.Label("", (String)ViewBag.error1)
+                        <td for="error2"></td>
+                        @Html.Label("", (String)ViewBag.error2)
                         <td for="minPriceError" ></td>
                         @Html.Label("", (String)ViewBag.filterMinPriceError) 
                         <td for="maxPriceError" ></td>

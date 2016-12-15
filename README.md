@@ -3,6 +3,7 @@
 ## Due 12-15-2016 (11:59pm)
 
 ## Author
+Jeffrey Martin
 
 ## Description
 
@@ -94,6 +95,8 @@ You can get up to 40 assignment points of extra credit by doing the following:
 * Write at least 2 unit tests to verify your code.
 
 ### Notes
+Validates the Create beverage with error messages for the user.
+Add JavaScript to confirm deletion of an Beverage.
 
 There is a Youtube video I found that should help you out with MVC.
 
@@ -132,5 +135,8 @@ the culprit, but I don't know which ones.
 | Total                                   | 100    |
 
 ## Outside Resources Used
+http://stackoverflow.com/questions/14284707/how-to-add-script-src-inside-a-view-when-using-layout
+http://stackoverflow.com/questions/10984394/mvc-equivalent-of-html-actionlink-through-javascript
 
 ## Known Problems, Issues, And/Or Errors in the Program
+None
